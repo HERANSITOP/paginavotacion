@@ -1,0 +1,357 @@
+:root {
+    --bg: #0f1419;
+    --surface: #1a2332;
+    --surface-hover: #212d3d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-soft: rgba(88, 166, 255, 0.15);
+    --success: #3fb950;
+    --error: #f85149;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font: 1rem/1.5 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    width: 100%;
+    max-width: 110rem;
+    padding: 1.5rem;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.disclaimer-badge {
+    background: transparent;
+    border: 1px solid rgba(248, 81, 73, 0.5);
+    color: var(--error);
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
+.disclaimer-badge:hover {
+    background: rgba(248, 81, 73, 0.12);
+}
+
+.card h2 {
+    margin: 1.5rem 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.card p {
+    margin: 0.75rem 0;
+    color: var(--muted);
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.65rem 1.25rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.15s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-submit {
+    margin-top: 1.25rem;
+    width: 100%;
+    padding: 0.75rem;
+}
+
+/* Results */
+.results-section {
+    margin: 1.25rem 0;
+}
+
+.results-table-wrap {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.65rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1200px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.results-table th {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-align: left;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.mechanism {
+    font-weight: 600;
+    min-width: 190px;
+}
+
+.desc {
+    min-width: 300px;
+    color: var(--muted);
+}
+
+.obs {
+    min-width: 260px;
+    color: var(--muted);
+}
+
+.pct-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(88, 166, 255, 0.16);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tag-yes {
+    background: rgba(63, 185, 80, 0.16);
+    color: var(--success);
+}
+
+.tag-no {
+    background: rgba(248, 81, 73, 0.16);
+    color: var(--error);
+}
+
+/* Vote options - horizontal grid */
+.options-wrapper {
+    margin: 1rem 0;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    main {
+        padding: 1rem;
+    }
+}
+
+.option-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--surface-hover);
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.option-card:hover {
+    background: rgba(88, 166, 255, 0.08);
+}
+
+.option-card input {
+    position: absolute;
+    opacity: 0;
+}
+
+.option-card input:checked + .option-label {
+    color: var(--accent);
+}
+
+.option-card:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.option-label {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.error {
+    color: var(--error);
+    margin: 0.5rem 0 !important;
+}
+
+.support-note {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+}
+
+.support-note a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.support-note a:hover {
+    text-decoration: underline;
+}
+
+.banner.blocked {
+    border-left: 4px solid var(--error);
+}
+
+.blocked-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    opacity: 1;
+}
+
+/* Disclaimer modal */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.modal-backdrop.is-hidden {
+    display: none;
+}
+
+.modal-card {
+    width: min(760px, 100%);
+    max-height: 85vh;
+    overflow: auto;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.75rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.1rem 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--error);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--text);
+}
+
+.modal-body {
+    padding: 1rem 1.1rem;
+}
+
+.modal-body p {
+    margin: 0 0 0.75rem;
+    color: var(--muted);
+}
+
+.modal-body strong {
+    color: var(--text);
+}
+
+.modal-body a {
+    color: var(--accent);
+}
+
+.modal-actions {
+    padding: 0 1.1rem 1.1rem;
+}
+
+.btn-modal {
+    margin-top: 0;
+}
