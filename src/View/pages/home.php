@@ -1,6 +1,12 @@
 <div class="card">
     <div class="title-row">
         <h1>Votación UNAL</h1>
+        <a
+            class="github-link"
+            href="https://github.com/unalvotacion/paginavotacion"
+            target="_blank"
+            rel="noopener noreferrer"
+        >GitHub</a>
         <button type="button" class="disclaimer-badge" id="open-disclaimer">(DISCLAIMER)</button>
     </div>
     {{ERROR}}
