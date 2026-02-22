@@ -26,6 +26,7 @@
             <button type="button" class="modal-close" id="close-disclaimer" aria-label="Cerrar">x</button>
         </div>
         <div class="modal-body">
+            <p class="maintenance-note"><strong>Aviso:</strong> Entre las <strong>11:00 p. m.</strong> y las <strong>12:00 a. m.</strong> la página puede no funcionar por cambios y actualizaciones.</p>
             <p><strong>1. Carácter no vinculante:</strong> Los resultados de esta votación tienen carácter exclusivamente informativo y no constituyen, por sí mismos, una decisión oficial sobre el mecanismo a adoptar, salvo validación expresa en asamblea.</p>
             <p><strong>2. No afiliación institucional:</strong> Este sitio web es una iniciativa independiente y no está afiliado, administrado, respaldado ni representa oficialmente a la Universidad Nacional de Colombia.</p>
             <p><strong>3. Uso voluntario:</strong> La participación en esta plataforma es voluntaria y su utilización implica la aceptación de este aviso.</p>
