@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Google\Client;
+use App\Service\HashService;
 
 class AuthController
 {
@@ -38,7 +39,8 @@ class AuthController
             header('Location: /');
             exit;
         }
-        $_SESSION['user_email'] = $email;
+        $hashService = new HashService();
+        $_SESSION['user_email_hash'] = $hashService->hash($email);
         unset($_SESSION['error']);
         header('Location: /vote');
         exit;

@@ -20,11 +20,11 @@ class VoteController
 
     public function form(): void
     {
-        if (empty($_SESSION['user_email'])) {
+        if (empty($_SESSION['user_email_hash'])) {
             header('Location: /');
             exit;
         }
-        if ($this->voteModel->hasVoted($_SESSION['user_email'])) {
+        if ($this->voteModel->hasVotedHash((string) $_SESSION['user_email_hash'])) {
             header('Location: /thanks');
             exit;
         }
@@ -37,7 +37,7 @@ class VoteController
 
     public function submit(): void
     {
-        if (empty($_SESSION['user_email'])) {
+        if (empty($_SESSION['user_email_hash'])) {
             header('Location: /');
             exit;
         }
@@ -52,11 +52,11 @@ class VoteController
             echo str_replace('{{CONTENT}}', $content, $layout);
             exit;
         }
-        if ($this->voteModel->hasVoted($_SESSION['user_email'])) {
+        if ($this->voteModel->hasVotedHash((string) $_SESSION['user_email_hash'])) {
             header('Location: /thanks');
             exit;
         }
-        $this->voteModel->cast($_SESSION['user_email'], $optionId);
+        $this->voteModel->castHash((string) $_SESSION['user_email_hash'], $optionId);
         header('Location: /thanks');
         exit;
     }

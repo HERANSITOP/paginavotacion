@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS sessions (
-    id VARCHAR(128) PRIMARY KEY,
-    data TEXT,
-    last_activity INT
-);
-
 CREATE TABLE IF NOT EXISTS options (
     id TINYINT PRIMARY KEY,
     name VARCHAR(50) NOT NULL
@@ -16,10 +10,14 @@ INSERT INTO options (id, name) VALUES
 (4,'Paro'),
 (5,'Normalidad');
 
+CREATE TABLE IF NOT EXISTS voters (
+    email_hash CHAR(64) PRIMARY KEY
+);
+
 CREATE TABLE IF NOT EXISTS votes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email_hash VARCHAR(64) NOT NULL,
     option_id TINYINT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY (email_hash)
+    INDEX (option_id),
+    CONSTRAINT fk_votes_option FOREIGN KEY (option_id) REFERENCES options(id)
 );

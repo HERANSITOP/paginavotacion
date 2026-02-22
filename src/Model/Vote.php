@@ -11,19 +11,43 @@ class Vote
         private HashService $hash,
     ) {}
 
+    public function hasVotedHash(string $emailHash): bool
+    {
+        $stmt = $this->pdo->prepare('SELECT 1 FROM voters WHERE email_hash = ? LIMIT 1');
+        $stmt->execute([$emailHash]);
+        return (bool) $stmt->fetch();
+    }
+
     public function hasVoted(string $email): bool
     {
-        $hash = $this->hash->hash($email);
-        $stmt = $this->pdo->prepare('SELECT 1 FROM votes WHERE email_hash = ? LIMIT 1');
-        $stmt->execute([$hash]);
-        return (bool) $stmt->fetch();
+        return $this->hasVotedHash($this->hash->hash($email));
+    }
+
+    public function castHash(string $emailHash, int $optionId): bool
+    {
+        $this->pdo->beginTransaction();
+        try {
+            // Insert voter hash first: unique constraint prevents duplicate votes.
+            $stmt = $this->pdo->prepare('INSERT INTO voters (email_hash) VALUES (?)');
+            $stmt->execute([$emailHash]);
+
+            // Vote row stays unlinkable to the voter hash.
+            $stmt = $this->pdo->prepare('INSERT INTO votes (option_id) VALUES (?)');
+            $stmt->execute([$optionId]);
+
+            $this->pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+            return false;
+        }
     }
 
     public function cast(string $email, int $optionId): bool
     {
-        $hash = $this->hash->hash($email);
-        $stmt = $this->pdo->prepare('INSERT INTO votes (email_hash, option_id) VALUES (?, ?)');
-        return $stmt->execute([$hash, $optionId]);
+        return $this->castHash($this->hash->hash($email), $optionId);
     }
 
     public function getOptions(): array
