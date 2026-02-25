@@ -1,0 +1,16 @@
+{
+  "name": "paginavotacion",
+  "private": true,
+  "workspaces": [
+    "client",
+    "api"
+  ],
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev --workspace api\" \"npm run dev --workspace client\"",
+    "build": "npm run build --workspace client",
+    "start": "npm run start --workspace api"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

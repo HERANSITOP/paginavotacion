@@ -1,4 +1,8 @@
-/vendor/
+node_modules/
 .env
-
-/scripts
+.env.local
+.env.*.local
+client/dist/
+api/node_modules/
+client/node_modules/
+.DS_Store
