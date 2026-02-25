@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
       options: { id: number; text: string; votes: number; pct: number }[];
     }>();
 
-    for (const r of polls as Row[]) {
+    for (const r of polls as unknown as Row[]) {
       if (!pollMap.has(r.poll_id)) {
         pollMap.set(r.poll_id, {
           id: r.poll_id, title: r.title, status: r.status, multi_choice: r.multi_choice,
@@ -81,8 +81,9 @@ export async function GET(req: NextRequest) {
       return p;
     });
 
+    const votersRow = (totalVoters as { total: number }[])[0];
     return NextResponse.json({
-      totalVoters: (totalVoters[0] as { total: number })?.total ?? 0,
+      totalVoters: votersRow?.total ?? 0,
       polls: pollsOut,
       recentVotes,
     });

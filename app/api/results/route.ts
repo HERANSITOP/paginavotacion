@@ -18,7 +18,7 @@ export async function GET() {
       GROUP BY o.id, o.name
       ORDER BY o.id
     `;
-    return NextResponse.json(rows as OptionResult[]);
+    return NextResponse.json(rows as unknown as OptionResult[]);
   } catch (err) {
     console.error("[api/results]", err);
     return NextResponse.json({ error: "Database error" }, { status: 500 });

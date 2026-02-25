@@ -70,7 +70,7 @@ export default async function VotePage() {
     FROM poll_options
     WHERE poll_id = ${poll.id}
     ORDER BY position
-  `) as PollOption[];
+  `) as unknown as PollOption[];
 
   const activePoll: ActivePoll = {
     id:           poll.id,
